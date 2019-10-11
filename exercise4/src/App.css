@@ -1,0 +1,15 @@
+.App {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 500px;
+}
+.card {
+  height: 220px;
+  width: 200px;
+  border: 1px #4d4d4d solid;
+}
+p {
+  margin-block-start: 0%;
+  margin-block-end: 0%;
+}
