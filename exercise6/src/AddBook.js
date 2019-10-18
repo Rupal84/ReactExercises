@@ -32,23 +32,26 @@ class AddBook extends React.Component {
         }
     }
 
-    onBlur = (event)=>{
+    updateState = (event)=>{
         var value = event.target.value;
         switch(event.target.name) {
             case "title":
-                this.setState({titleValid: value && value.length < 4 ? false: true});
+                this.setState({titleValid: value && value.length < 4 ? false: true}, this.updateComponentState);
                 break;
             case "author":
-                this.setState({authorValid: value && value.length < 3 ? false: true});
+                this.setState({authorValid: value && value.length < 3 ? false: true}, this.updateComponentState);
                 break;
             case "genre":
-                this.setState({genreValid: value ? true: false});
+                this.setState({genreValid: value ? true: false}, this.updateComponentState);
                 break;
             default:
         }
-        console.log(value, this.state.titleValid , this.state.authorValid , this.state.genreValid)
+        
+    }
+
+    updateComponentState = ()=> {
         var isFormValid = this.state.titleValid && this.state.authorValid && this.state.genreValid;
-        this.setState({formValid: isFormValid});
+        this.setState({formValid: isFormValid ? true: false});
     }
     render() {
         return (
@@ -62,7 +65,7 @@ class AddBook extends React.Component {
                     name='title' 
                     className="form-control" 
                     value={this.state.title}
-                    onBlur={this.onBlur}
+                    onBlur={this.updateState}
                     onChange={this.onChange}
                 />
                 </div>
@@ -74,7 +77,7 @@ class AddBook extends React.Component {
                     className="form-control" 
                     value={this.state.author}
                     onChange={this.onChange}
-                    onBlur={this.onBlur}
+                    onBlur={this.updateState}
                 />
                 </div>
                 <div className="form-group control-label">
@@ -84,13 +87,14 @@ class AddBook extends React.Component {
                     className="custom-select" 
                     value={this.state.genre}
                     onChange={this.onChange}
-                    onBlur={this.onBlur}
+                    onBlur={this.updateState}
                 >
                          <option value="mystery-thriller">Mystery Thriller</option>
                         <option value="fiction">Fiction</option>
                         <option value="non-fiction">Non Fiction</option>
                 </select><br/><br/>
-                <button disabled={!this.state.formValid}type="submit" className="btn btn-success">Add Book</button>
+               <p> sdfsf{this.state.formValid ? 'true' : 'false'}</p>
+                <button disabled={!this.state.formValid} type="submit" className="btn btn-success">Add Book</button>
                 </div>
             </form>
             </div>
