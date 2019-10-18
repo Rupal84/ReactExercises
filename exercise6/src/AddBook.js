@@ -7,7 +7,7 @@ class AddBook extends React.Component {
         this.state = {
             title: '',
             author: '',
-            genre: 'fiction',
+            genre: '',
             titleValid: false,
             authorValid: false,
             genreValid: false,
@@ -42,7 +42,7 @@ class AddBook extends React.Component {
                 this.setState({authorValid: value && value.length < 3 ? false: true}, this.updateComponentState);
                 break;
             case "genre":
-                this.setState({genreValid: value ? true: false}, this.updateComponentState);
+                this.setState({genreValid: !!value  ? true: false}, this.updateComponentState);
                 break;
             default:
         }
@@ -68,6 +68,8 @@ class AddBook extends React.Component {
                     onBlur={this.updateState}
                     onChange={this.onChange}
                 />
+                {this.state.titleValid ? '': 
+                <p class="text-danger">Title must contain at least 4 characters</p>}
                 </div>
                 <div className="form-group control-label">
                 <label for="author">Author</label>
@@ -79,6 +81,8 @@ class AddBook extends React.Component {
                     onChange={this.onChange}
                     onBlur={this.updateState}
                 />
+                {this.state.authorValid ? '' :
+                <p class="text-danger">Author must contain at least 3 characters</p>}
                 </div>
                 <div className="form-group control-label">
                 <label className="control-label " for='genre'>Genre:</label>
@@ -88,12 +92,15 @@ class AddBook extends React.Component {
                     value={this.state.genre}
                     onChange={this.onChange}
                     onBlur={this.updateState}
-                >
-                         <option value="mystery-thriller">Mystery Thriller</option>
+                >   
+                        <option />
+                        <option value="mystery-thriller">Mystery Thriller</option>
                         <option value="fiction">Fiction</option>
                         <option value="non-fiction">Non Fiction</option>
-                </select><br/><br/>
-               <p> sdfsf{this.state.formValid ? 'true' : 'false'}</p>
+                </select>
+                {this.state.genreValid ?
+                '' : <p class="text-danger">Please select a genre</p>}
+                <br/><br/>
                 <button disabled={!this.state.formValid} type="submit" className="btn btn-success">Add Book</button>
                 </div>
             </form>
